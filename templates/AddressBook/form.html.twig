@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="p-5 address-book-form">
+        {{ form_start(form) }}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="{{ form.FirstName.vars.id }}">{{ form.FirstName.vars.label }}</label>
+                    {{ form_widget(form.FirstName) }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="{{ form.LastName.vars.id }}">{{ form.LastName.vars.label }}</label>
+                    {{ form_widget(form.LastName) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.BirthDate.vars.id }}">{{ form.BirthDate.vars.label }}</label>
+                {{ form_widget(form.BirthDate) }}
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label for="{{ form.Country.vars.id }}">{{ form.Country.vars.label }}</label>
+                    {{ form_widget(form.Country) }}
+                </div>
+                <div class="form-group col-md-5">
+                    <label for="{{ form.City.vars.id }}">{{ form.City.vars.label }}</label>
+                    {{ form_widget(form.City) }}
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="{{ form.ZipCode.vars.id }}">{{ form.ZipCode.vars.label }}</label>
+                    {{ form_widget(form.ZipCode) }}
+                </div>
+            </div>
+            <div class="form-group">
+            <label for="{{ form.StreetAddress.vars.id }}">{{ form.StreetAddress.vars.label }}</label>
+            {{ form_widget(form.StreetAddress) }}
+        </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="{{ form.EmailAddress.vars.id }}">{{ form.EmailAddress.vars.label }}</label>
+                    {{ form_widget(form.EmailAddress) }}
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="{{ form.PhoneNumber.vars.id }}">{{ form.PhoneNumber.vars.label }}</label>
+                    {{ form_widget(form.PhoneNumber) }}
+                </div>
+            </div>
+        <div class="form-row">
+            <div class="form-group col-md-10">
+                <label for="{{ form.PictureFile.vars.id }}">
+                    <span>{{ form.PictureFile.vars.label }} </span>
+                    <a href="{{ picture_path }}" id="view_picture" class="d-inline-block fa fa-eye text-primary"> </a>
+                </label>
+                {{ form_widget(form.PictureFile) }}
+            </div>
+        </div>
+            <div class="form-group">
+                {{ form_widget(form.Submit) }}
+            </div>
+        {% if errors is defined and errors|length > 0 %}
+            <span class="text-danger"> Please Fix The Following Issues !</span>
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        </div>
+        {{ form_end(form) }}
+    <script>
+        const view_picture = document.getElementById("view_picture");
+        const upload_picture = document.getElementById("{{ form.vars.name }}_PictureFile");
+        const picture_path = "{{ picture_path }}";
+        view_picture.onclick = e => {
+            e.preventDefault();
+            const path = upload_picture.files;
+            if (path.length > 0) {
+                const href = URL.createObjectURL(path[0]);
+                window.open(href, '_blank');
+            }
+            else if (picture_path !== "#"){
+                const redirectWindow = window.open(picture_path, '_blank');
+                redirectWindow.location;
+            }
+            else {
+                alert("No Picture !!");
+            }
+        };
+        upload_picture.onchange = e => {
+            var str = e.target.value;
+            str = str.substring(str.lastIndexOf('\\') + 1);
+            e.target.nextSibling.innerHTML = str;
+        }
+        {% if picture_name is defined and picture_name != null %}
+            upload_picture.nextSibling.innerHTML = "{{ picture_name }}";
+        {% endif %}
+    </script>
+{% endblock %}

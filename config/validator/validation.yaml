@@ -1,0 +1,49 @@
+App\Entity\AddressBook:
+  properties:
+    first_name:
+      - NotBlank:
+          message: 'First Name Is Required'
+      - Length:
+          max: 512
+          maxMessage: 'First Name Value is Too Long'
+    last_name:
+      - NotBlank:
+          message: 'Last Name Is Required'
+      - Length:
+          max: 512
+          maxMessage: 'Last Name Value is Too Long'
+    birth_date:
+      - NotBlank:
+          message: 'Birth Date Is Required'
+    country:
+      - NotBlank:
+          message: 'Country Is Required'
+    city:
+      - NotBlank:
+          message: 'City Is Required'
+      - Length:
+          max: 512
+          maxMessage: 'City Value is Too Long'
+    zip_code:
+      - NotBlank:
+          message: 'Zip Code Is Required'
+      - Length:
+          max: 6
+          maxMessage: 'Zip Code Value is Too Long'
+    street_address:
+      - NotBlank:
+          message: 'Street Address Is Required'
+      - Length:
+          max: 1024
+          maxMessage: 'Street Address Value is Too Long'
+    email_address:
+      - NotBlank:
+          message: 'Email Address Is Required'
+      - Email:
+          message: 'Please Provide a Valid Email'
+    phone_number:
+      - NotBlank:
+          message: 'Phone Number Is Required'
+      - Length:
+          max: 25
+          maxMessage: 'Phone Number Value is Too Long'

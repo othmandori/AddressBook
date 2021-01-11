@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <table class="table table-light table-light table-striped table-bordered table-hover">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col" class="text-center">#</th>
+            <th scope="col" class="text-center">Full Name</th>
+            <th scope="col" class="text-center">Street Address</th>
+            <th scope="col" class="text-center">City</th>
+            <th scope="col" class="text-center">Phone Number</th>
+            <th scope="col" class="text-center">Email Address</th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for address_book in address_books %}
+            <tr>
+                <th class="text-center" scope="row">{{ loop.index }}</th>
+                <td class="text-center">{{ address_book["first_name"] ~ "  " ~ address_book["last_name"] }}</td>
+                <td class="text-center">{{ address_book["street_address"]}}</td>
+                <td class="text-center">{{ address_book["city"]}}</td>
+                <td class="text-center">{{ address_book["phone_number"]}}</td>
+                <td class="text-center">{{ address_book["email_address"]}}</td>
+                <td class="text-center">
+                    <div class="d-flex justify-content-around">
+                        <a class="text-primary" href="{{ path('edit',{address_book:address_book["Id"]}) }}">Update</a>
+                        <a class="text-danger" href="{{ path('delete',{address_book:address_book["Id"]}) }}">Delete</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
